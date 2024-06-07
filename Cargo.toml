@@ -28,7 +28,7 @@ const_format = "0.2"
 # optional
 tokio = { version = "1.0.0", features = ["rt", "rt-multi-thread", "macros"], optional = true }
 simd-json = { version = "0.13.4", features = ["runtime-detection", "known-key"], optional = true }
-tungstenite = { version = "0.20.1", features = ["native-tls"], optional = true }
+tungstenite = { version = "0.20.1", features = ["native-tls"] }
 log = { version = "0.4.20", optional = true }
 env_logger = { version = "0.10.0", features = [], optional = true }
 rust_decimal = { version = "1" , optional = true }
@@ -47,6 +47,6 @@ dotenv = { version = "0.15.0" }
 default = ["dep:log"]
 vip = []
 simd = ["dep:simd-json"]
-websocket = ["dep:tungstenite"]
+websocket = []
 example = ["dep:env_logger", "dep:tokio", "websocket"]
 orderbook = ["dep:rust_decimal"]

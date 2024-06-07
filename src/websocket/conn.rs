@@ -1,4 +1,4 @@
-use crate::api::v5::BookUpdate;
+use crate::api::v5::{BookUpdate, ChannelArg, Ticker};
 use crate::websocket::WebsocketChannel;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -124,6 +124,30 @@ impl WebsocketChannel for BooksL2Tbt {
                 {
                     "channel": Self::CHANNEL,
                     "instId": inst_id,
+                }
+            ]
+        })
+        .to_string()
+    }
+
+    fn unsubscribe_message(&self) -> String {
+        todo!()
+    }
+}
+
+pub struct Tickers(pub String);
+impl WebsocketChannel for Tickers {
+    const CHANNEL: &'static str = "tickers";
+    type Response<'de> = Vec<Ticker>;
+    type ArgType<'de> = ChannelArg<'de>;
+
+    fn subscribe_message(&self) -> String {
+        serde_json::json!({
+            "op": "subscribe",
+            "args": [
+                {
+                  "channel": Self::CHANNEL,
+                  "instId": self.0,
                 }
             ]
         })

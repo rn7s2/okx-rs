@@ -5,7 +5,7 @@ use crate::{
     api::v5::Instruments,
     api::v5::MarkPrices,
     api::v5::WsResponse,
-    websocket::conn::{BboTbt, Books, Books5, BooksL2Tbt},
+    websocket::conn::{BboTbt, Books, Books5, BooksL2Tbt, Tickers},
     websocket::WebsocketChannel,
 };
 use const_format::concatcp;
@@ -45,6 +45,7 @@ impl_channel_match!(PositionsChannel);
 impl_channel_match!(AccountChannel);
 impl_channel_match!(BalanceAndPositionChannel);
 impl_channel_match!(OrdersChannel);
+impl_channel_match!(Tickers);
 
 impl ChannelMatch for OrderOp {
     const CHANNEL_PATTERN: &'static str = r#""op":"order""#;

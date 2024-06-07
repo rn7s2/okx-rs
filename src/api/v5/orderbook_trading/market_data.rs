@@ -98,3 +98,38 @@ impl Request for GetTrades {
     const PATH: &'static str = "/market/history-trades";
     type Response = Vec<TradeHistory>;
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Ticker {
+    pub inst_type: String,
+    pub inst_id: String,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub last: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub last_sz: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub ask_px: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub ask_sz: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub bid_px: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub bid_sz: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub open24h: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub high24h: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub low24h: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub vol_ccy24h: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub vol24h: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub sod_utc0: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub sod_utc8: Option<f64>,
+    #[serde(default, deserialize_with = "deserialize_from_opt_str")]
+    pub ts: Option<u64>,
+}
