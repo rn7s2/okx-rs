@@ -3,6 +3,7 @@ use crate::api::v5::{IndexTicker, Request};
 use crate::serde_util::*;
 use reqwest::Method;
 use serde::{Deserialize, Serialize};
+use serde_with::{serde_as, skip_serializing_none};
 
 /// https://www.okx.com/docs-v5/en/#rest-api-market-data-get-index-tickers
 #[derive(Debug, Clone, Serialize, Default)]
@@ -97,6 +98,27 @@ impl Request for GetTrades {
     const METHOD: Method = Method::GET;
     const PATH: &'static str = "/market/history-trades";
     type Response = Vec<TradeHistory>;
+}
+
+/// https://www.okx.com/docs-v5/en/#rest-api-trade-get-order-list
+#[skip_serializing_none]
+#[serde_as]
+#[derive(Debug, Clone, Serialize, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct GetHistoryCandles {
+    pub inst_id: String,
+    pub after: Option<u64>,
+    pub before: Option<u64>,
+    pub bar: Option<String>,
+    pub limit: Option<u32>,
+}
+
+impl Request for GetHistoryCandles {
+    const METHOD: Method = Method::GET;
+    const PATH: &'static str = "/market/history-candles";
+    const AUTH: bool = false;
+
+    type Response = Vec<Vec<String>>;
 }
 
 #[derive(Debug, Serialize, Deserialize)]
